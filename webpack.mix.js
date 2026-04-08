@@ -15,4 +15,24 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .options({
        processCssUrls: false
+   })
+   .webpackConfig({
+       stats: {
+           children: true
+       },
+       infrastructureLogging: {
+           level: 'error'
+       },
+       devServer: {
+           client: {
+               logging: {
+                   level: 'error'
+               }
+           }
+       }
    });
+
+// Disable progress plugin to avoid webpack-cli compatibility issues
+if (mix.inProduction()) {
+    mix.disableNotifications();
+}
