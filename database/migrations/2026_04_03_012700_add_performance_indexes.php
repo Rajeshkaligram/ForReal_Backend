@@ -40,9 +40,16 @@ return new class extends Migration
         if (Schema::hasTable('users')) {
             // email is TEXT in legacy schema, so use a prefix index.
             $this->createIndexIfMissing('users', 'idx_users_email', 'CREATE INDEX idx_users_email ON users (email(191))');
-            $this->createIndexIfMissing('users', 'idx_users_status', 'CREATE INDEX idx_users_status ON users (status)');
-            $this->createIndexIfMissing('users', 'idx_users_privilege', 'CREATE INDEX idx_users_privilege ON users (privilege)');
-            $this->createIndexIfMissing('users', 'idx_users_is_deleted', 'CREATE INDEX idx_users_is_deleted ON users (is_deleted)');
+            // Only create indexes if columns exist (legacy schema may not have these columns)
+            if (Schema::hasColumn('users', 'status')) {
+                $this->createIndexIfMissing('users', 'idx_users_status', 'CREATE INDEX idx_users_status ON users (status)');
+            }
+            if (Schema::hasColumn('users', 'privilege')) {
+                $this->createIndexIfMissing('users', 'idx_users_privilege', 'CREATE INDEX idx_users_privilege ON users (privilege)');
+            }
+            if (Schema::hasColumn('users', 'is_deleted')) {
+                $this->createIndexIfMissing('users', 'idx_users_is_deleted', 'CREATE INDEX idx_users_is_deleted ON users (is_deleted)');
+            }
         }
 
         if (Schema::hasTable('products')) {

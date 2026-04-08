@@ -29,7 +29,11 @@ mix.js('resources/assets/js/app.js', 'public/js')
                    level: 'error'
                }
            }
-       }
+       },
+       // Disable progress plugin to fix webpack-cli 4.x compatibility
+       plugins: [
+           new (require('webpack')).ProgressPlugin(false)
+       ]
    });
 
 // Disable progress plugin to avoid webpack-cli compatibility issues
