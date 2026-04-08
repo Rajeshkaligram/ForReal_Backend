@@ -7,8 +7,8 @@ use App\Observers\AuditableObserver;
 use App\User;
 use App\Models\DeviceToken;
 use App\Models\Products\Products;
-use App\models\Rent\Rent;
-use App\models\Wishlist\Wishlist;
+use App\Models\Rent\Rent;
+use App\Models\Wishlist\Wishlist;
 use App\Models\ProductUserReview;
 
 class AppServiceProvider extends ServiceProvider
