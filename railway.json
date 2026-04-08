@@ -1,10 +1,10 @@
 {
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "DOCKERFILE"
   },
   "deploy": {
     "startCommand": "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT",
-    "healthcheckPath": "/",
+    "healthcheckPath": "/health",
     "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE"
   }
