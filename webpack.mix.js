@@ -14,7 +14,9 @@ const mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .options({
-       processCssUrls: false
+       processCssUrls: false,
+       // Disable progress plugin to fix webpack-cli 4.x compatibility issue
+       progress: false
    })
    .webpackConfig({
        stats: {
@@ -29,14 +31,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
                    level: 'error'
                }
            }
-       },
-       // Disable progress plugin to fix webpack-cli 4.x compatibility
-       plugins: [
-           new (require('webpack')).ProgressPlugin(false)
-       ]
-   });
-
-// Disable progress plugin to avoid webpack-cli compatibility issues
-if (mix.inProduction()) {
-    mix.disableNotifications();
-}
+       }
+   })
+   .disableNotifications();
