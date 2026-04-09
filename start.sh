@@ -8,7 +8,7 @@ fi
 
 echo "Using PORT: ${PORT}"
 
-# Configure Apache to use Railway PORT
+# Configure Apache to use Render PORT
 sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf
 sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
