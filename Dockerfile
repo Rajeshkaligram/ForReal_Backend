@@ -28,6 +28,7 @@ RUN chown -R www-data:www-data /app \
     && chmod -R 755 /app/bootstrap/cache
 
 # Configure Apache
+RUN a2dismod mpm_event && a2enmod mpm_prefork
 RUN a2enmod rewrite
 RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/app\/public/g' /etc/apache2/sites-available/000-default.conf
 RUN sed -i 's/<Directory \/var\/www\/>/<Directory \/app\/public>/g' /etc/apache2/sites-available/000-default.conf
