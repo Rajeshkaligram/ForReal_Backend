@@ -3,10 +3,8 @@
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "apache2-foreground",
     "healthcheckPath": "/health",
     "healthcheckTimeout": 300,
-    "restartPolicyType": "ON_FAILURE",
-    "preDeployCommand": "php artisan migrate --force"
+    "restartPolicyType": "ON_FAILURE"
   }
 }

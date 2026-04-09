@@ -16,6 +16,9 @@
 Route::get('/health', function () {
     return response()->json(['status' => 'ok']);
 });
+Route::get('/test', function () {
+    return response()->json(['status' => 'ok']);
+});
 
 Route::get('payment', function () {
     $curl = curl_init();

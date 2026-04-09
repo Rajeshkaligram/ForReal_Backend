@@ -3,25 +3,21 @@
 set -e
 
 if [ -z "${PORT}" ]; then
-  echo "PORT is not set; defaulting to 8080"
   export PORT=8080
 fi
 
-echo "Configuring Apache to listen on port ${PORT}"
+echo "Using PORT: ${PORT}"
 
-# Replace default Apache listen port and vhost port (Railway provides $PORT)
-sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf || true
-sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf || true
+# Configure Apache to use Railway PORT
+sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf
+sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
-# Wait for database to be ready
-echo "Waiting for database connection..."
-until php artisan db:show 2>/dev/null; do
-    echo "Database is unavailable - sleeping"
-    sleep 2
-done
+# Clear cache (important)
+php artisan config:clear || true
+php artisan cache:clear || true
 
-echo "Database is ready - running migrations"
-php artisan migrate --force
+# Run migrations safely (don't block forever)
+php artisan migrate --force || true
 
-echo "Starting Apache"
+# Start Apache
 apache2-foreground
