@@ -27,8 +27,21 @@ RUN chown -R www-data:www-data /app \
     && chmod -R 755 /app/storage \
     && chmod -R 755 /app/bootstrap/cache
 
-# Expose port
-EXPOSE 8080
+# Configure Apache
+RUN a2enmod rewrite
+RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/app\/public/g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/<Directory \/var\/www\/>/<Directory \/app\/public>/g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/000-default.conf
+RUN echo "Listen \${PORT}" >> /etc/apache2/ports.conf
+RUN sed -i 's/VirtualHost \*:80/VirtualHost *:\${PORT}/g' /etc/apache2/sites-available/000-default.conf
 
-# Start command
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+# Expose port
+EXPOSE 3000
+
+# Set environment
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_LOG_DIR=/var/log/apache2
+
+# Start Apache
+CMD ["apache2-foreground"]
