@@ -32,8 +32,8 @@ RUN a2enmod rewrite
 RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/app\/public/g' /etc/apache2/sites-available/000-default.conf
 RUN sed -i 's/<Directory \/var\/www\/>/<Directory \/app\/public>/g' /etc/apache2/sites-available/000-default.conf
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/000-default.conf
-RUN echo "Listen \${PORT}" >> /etc/apache2/ports.conf
-RUN sed -i 's/VirtualHost \*:80/VirtualHost *:\${PORT}/g' /etc/apache2/sites-available/000-default.conf
+
+RUN chmod +x /app/start.sh
 
 # Expose port
 EXPOSE 3000

@@ -3,9 +3,9 @@
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "php artisan migrate --force && apache2-foreground",
+    "startCommand": "./start.sh",
     "healthcheckPath": "/health",
-    "healthcheckTimeout": 60000,
+    "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE"
   }
 }
