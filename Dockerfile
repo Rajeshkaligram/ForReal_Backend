@@ -25,8 +25,8 @@ RUN chown -R www-data:www-data /app \
 # ✅ REMOVE MPM LINES (IMPORTANT)
 # ❌ DO NOT TOUCH MPM
 
-# Enable rewrite
-RUN a2enmod rewrite
+# Enable required Apache modules
+RUN a2enmod rewrite headers
 
 # Set Laravel public folder with proper Apache 2.4 configuration
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
