@@ -16,8 +16,10 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-avail
 php artisan config:clear || true
 php artisan cache:clear || true
 
-# Run migrations safely (don't block forever)
-php artisan migrate --force || true
+# Run migrations safely (skip if DB not configured)
+if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
+    php artisan migrate --force || true
+fi
 
 # Start Apache
 apache2-foreground

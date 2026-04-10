@@ -29,10 +29,7 @@ RUN chown -R www-data:www-data /app \
 RUN a2enmod rewrite
 
 # Set Laravel public folder with proper Apache 2.4 configuration
-RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/app\/public/g' /etc/apache2/sites-available/000-default.conf
-RUN sed -i 's/<Directory \/var\/www\/>/<Directory \/app\/public>/g' /etc/apache2/sites-available/000-default.conf
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/000-default.conf
-RUN sed -i '/<Directory \/app\/public>/a\    Require all granted' /etc/apache2/sites-available/000-default.conf
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Copy start script
 RUN chmod +x /app/start.sh
