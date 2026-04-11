@@ -10,7 +10,7 @@ echo "Using PORT: ${PORT}"
 
 # Configure Apache to use Railway/Render PORT
 sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf
-sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf
+# Note: apache.conf already uses ${PORT} variable, so no need to modify VirtualHost
 
 # Clear cache (skip if DB not configured)
 php artisan config:clear --no-interaction 2>/dev/null || true
