@@ -1,7 +1,7 @@
-FROM php:8.2-apache
+FROM php:8.2-apache-bullseye
 
-# Force cache invalidation - v3
-ARG CACHE_BUST=3
+# Force cache invalidation - v4
+ARG CACHE_BUST=4
 
 WORKDIR /app
 
@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev default-mysql-client \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Fix MPM conflict - forcefully remove all MPM modules, then enable only prefork
-RUN rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf \
+# Fix MPM conflict - forcefully disable event and enable prefork
+RUN sed -i 's/LoadModule mpm_event_module/#LoadModule mpm_event_module/' /etc/apache2/mods-available/mpm_event.load || true \
+    && a2dismod mpm_event || true \
     && a2enmod mpm_prefork \
     && a2enmod rewrite headers
 
