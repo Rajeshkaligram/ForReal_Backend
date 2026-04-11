@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4mb4 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `db_rentasuit_php`
@@ -31,14 +31,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `blog` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `title` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `picture` text COLLATE utf8mb4mb4_unicode_ci,
-  `picture_custom_size` text COLLATE utf8mb4mb4_unicode_ci,
-  `seo_url` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture` text COLLATE utf8mb4_unicode_ci,
+  `picture_custom_size` text COLLATE utf8mb4_unicode_ci,
+  `seo_url` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `blog`
@@ -76,7 +76,7 @@ CREATE TABLE `blog_categories` (
   `category_id` int(11) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -86,15 +86,15 @@ CREATE TABLE `blog_categories` (
 
 CREATE TABLE `categories` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = blog | 1 = product',
-  `picture` text COLLATE utf8mb4mb4_unicode_ci,
+  `picture` text COLLATE utf8mb4_unicode_ci,
   `shipping_fee_local` double DEFAULT NULL,
   `shipping_fee_nationwide` double DEFAULT NULL,
-  `seo_url` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `seo_url` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
@@ -148,24 +148,24 @@ INSERT INTO `cleaner` (`id`, `name`, `shop_name`, `location`, `latitude`, `longi
 
 CREATE TABLE `configuration` (
   `id` int(11) NOT NULL,
-  `logo` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `logo_footer` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `email` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `copyright` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `phone_number` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `location` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `logo` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo_footer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `copyright` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_number` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `commision` double NOT NULL DEFAULT '0',
-  `social_media_links` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `paypal_account` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `paypal_client_id` varchar(255) COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
-  `paypal_client_secret` varchar(255) COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
-  `paypal_live_client_id` varchar(255) COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
-  `paypal_live_client_secret` varchar(255) COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
-  `paypal_mode` varchar(255) COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
+  `social_media_links` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `paypal_account` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `paypal_client_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paypal_client_secret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paypal_live_client_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paypal_live_client_secret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paypal_mode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `configuration`
@@ -451,10 +451,10 @@ INSERT INTO `countries` (`Code`, `Name`, `Continent`, `Region`, `SurfaceArea`, `
 
 CREATE TABLE `dropzone` (
   `id` int(11) NOT NULL,
-  `ip` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `label_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `file` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `size` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `ip` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `label_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `rotate` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -525,7 +525,7 @@ CREATE TABLE `messages` (
   `room_id` int(11) UNSIGNED NOT NULL,
   `from_user_id` int(11) UNSIGNED NOT NULL COMMENT 'sender',
   `to_user_id` int(11) UNSIGNED NOT NULL COMMENT 'reciever',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL COMMENT '0 = unread | 1 = read',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -551,7 +551,7 @@ INSERT INTO `messages` (`id`, `room_id`, `from_user_id`, `to_user_id`, `content`
 
 CREATE TABLE `messages_room` (
   `id` int(11) UNSIGNED NOT NULL,
-  `md5_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `md5_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `creator_id` int(11) UNSIGNED NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -572,9 +572,9 @@ INSERT INTO `messages_room` (`id`, `md5_id`, `creator_id`, `updated_at`, `create
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -601,10 +601,10 @@ CREATE TABLE `notification` (
   `for_user` int(11) UNSIGNED NOT NULL,
   `from_user` int(11) UNSIGNED NOT NULL,
   `rent_id` int(11) UNSIGNED NOT NULL,
-  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `type` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `read` tinyint(1) DEFAULT NULL,
   `status` int(11) UNSIGNED NOT NULL COMMENT '0 = unread | 1 = read',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1218,10 +1218,10 @@ INSERT INTO `notification` (`id`, `for_user`, `from_user`, `rent_id`, `title`, `
 
 CREATE TABLE `pages` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pages`
@@ -1251,13 +1251,13 @@ CREATE TABLE `page_content` (
   `id` int(11) NOT NULL,
   `page_id` int(11) UNSIGNED NOT NULL,
   `section_id` int(11) UNSIGNED NOT NULL,
-  `field_type` text COLLATE utf8mb4mb4_unicode_ci NOT NULL COMMENT 'text, textarea, image, file, wysiwyg_basic, wysiwyg_full, repeater',
-  `field_name` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `repeater_fields` text COLLATE utf8mb4mb4_unicode_ci,
-  `content` text COLLATE utf8mb4mb4_unicode_ci,
+  `field_type` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'text, textarea, image, file, wysiwyg_basic, wysiwyg_full, repeater',
+  `field_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `repeater_fields` text COLLATE utf8mb4_unicode_ci,
+  `content` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `page_content`
@@ -1365,10 +1365,10 @@ INSERT INTO `page_content` (`id`, `page_id`, `section_id`, `field_type`, `field_
 
 CREATE TABLE `page_section` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `page_section`
@@ -1389,10 +1389,10 @@ INSERT INTO `page_section` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `token` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `password_resets`
@@ -1463,24 +1463,24 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 CREATE TABLE `products` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` double NOT NULL,
-  `color` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `size` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `season` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `picture` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `seo_url` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `color` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `season` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `seo_url` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `retail_price` double NOT NULL DEFAULT '0',
-  `alteration` enum('Yes','No') COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT 'No',
-  `condition` varchar(30) COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT 'Like New',
-  `designer` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `cancellation` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `alteration` enum('Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'No',
+  `condition` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Like New',
+  `designer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cancellation` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `cleaning_price` double DEFAULT NULL,
   `is_deleted` int(11) DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
@@ -1625,7 +1625,7 @@ CREATE TABLE `product_categories` (
   `category_id` int(11) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `product_categories`
@@ -1766,13 +1766,13 @@ INSERT INTO `product_categories` (`id`, `product_id`, `category_id`, `created_at
 CREATE TABLE `product_photos` (
   `id` int(11) NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
-  `sub_photo` text COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `sub_photo` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = image',
   `size` int(11) NOT NULL,
   `rotate` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `product_photos`
@@ -2085,25 +2085,25 @@ CREATE TABLE `rent_details` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
-  `delivery_option` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `delivery_option` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `return_delivery_option` text,
   `return_date` timestamp NULL DEFAULT NULL,
-  `rental_start_date` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `rental_start_date` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `shipping_info` varchar(255) DEFAULT NULL,
   `return_shipping_info` varchar(255) DEFAULT NULL,
-  `rental_end_date` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `street_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `route` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `address2` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `address3` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `city` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `state` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `postal_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `country` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `contact_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
-  `status` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `rental_end_date` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `street_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `route` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address2` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address3` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `postal_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` varchar(255) DEFAULT NULL,
   `pay_key` varchar(255) NOT NULL DEFAULT '',
   `cart_total` double NOT NULL DEFAULT '0',
@@ -2300,43 +2300,43 @@ INSERT INTO `rent_details_transaction_detail` (`id`, `rented_detail_id`, `user_i
 
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
-  `email` text COLLATE utf8mb4mb4_unicode_ci,
-  `username` text COLLATE utf8mb4mb4_unicode_ci,
-  `first_name` text COLLATE utf8mb4mb4_unicode_ci,
-  `last_name` text COLLATE utf8mb4mb4_unicode_ci,
-  `contact_number` text COLLATE utf8mb4mb4_unicode_ci,
-  `location` text COLLATE utf8mb4mb4_unicode_ci,
-  `country` text COLLATE utf8mb4mb4_unicode_ci,
+  `email` text COLLATE utf8mb4_unicode_ci,
+  `username` text COLLATE utf8mb4_unicode_ci,
+  `first_name` text COLLATE utf8mb4_unicode_ci,
+  `last_name` text COLLATE utf8mb4_unicode_ci,
+  `contact_number` text COLLATE utf8mb4_unicode_ci,
+  `location` text COLLATE utf8mb4_unicode_ci,
+  `country` text COLLATE utf8mb4_unicode_ci,
   `longitude` double NOT NULL DEFAULT '0',
   `latitude` double NOT NULL DEFAULT '0',
   `birthday` date DEFAULT NULL,
-  `size` varchar(50) COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '0 = Extra Small | 1 = Small | 2 = Medium | 3 = Large | 4 = Extra Large',
-  `height` text COLLATE utf8mb4mb4_unicode_ci,
-  `breast` text COLLATE utf8mb4mb4_unicode_ci,
-  `waist` text COLLATE utf8mb4mb4_unicode_ci,
-  `hips` text COLLATE utf8mb4mb4_unicode_ci,
+  `size` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '0 = Extra Small | 1 = Small | 2 = Medium | 3 = Large | 4 = Extra Large',
+  `height` text COLLATE utf8mb4_unicode_ci,
+  `breast` text COLLATE utf8mb4_unicode_ci,
+  `waist` text COLLATE utf8mb4_unicode_ci,
+  `hips` text COLLATE utf8mb4_unicode_ci,
   `body_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 - 5 image',
   `shipping_fee_local` double NOT NULL DEFAULT '0',
   `shipping_fee_nationwide` double NOT NULL DEFAULT '0',
   `cleaning_price` double(10,2) DEFAULT NULL,
   `privilege` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 = admin | 1 = user',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = not verify | 1 = verified',
-  `profile_picture` text COLLATE utf8mb4mb4_unicode_ci,
-  `profile_picture_custom_size` text COLLATE utf8mb4mb4_unicode_ci,
-  `facebook_id` text COLLATE utf8mb4mb4_unicode_ci,
-  `twitter_id` text COLLATE utf8mb4mb4_unicode_ci,
-  `password` text COLLATE utf8mb4mb4_unicode_ci,
-  `crypted_password` text COLLATE utf8mb4mb4_unicode_ci,
-  `verification_code` varchar(10) COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT '',
-  `paypal_email_address` varchar(255) COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT '',
+  `profile_picture` text COLLATE utf8mb4_unicode_ci,
+  `profile_picture_custom_size` text COLLATE utf8mb4_unicode_ci,
+  `facebook_id` text COLLATE utf8mb4_unicode_ci,
+  `twitter_id` text COLLATE utf8mb4_unicode_ci,
+  `password` text COLLATE utf8mb4_unicode_ci,
+  `crypted_password` text COLLATE utf8mb4_unicode_ci,
+  `verification_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `paypal_email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `verify_paypal_email` int(11) NOT NULL DEFAULT '0',
-  `api_token` varchar(255) COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT '',
-  `remember_token` text COLLATE utf8mb4mb4_unicode_ci,
+  `api_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `remember_token` text COLLATE utf8mb4_unicode_ci,
   `is_deleted` tinyint(1) DEFAULT '0',
-  `firebase_id` varchar(255) COLLATE utf8mb4mb4_unicode_ci NOT NULL DEFAULT '',
+  `firebase_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
