@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-		if($request->expectsJson()) {
+		if($request->expectsJson() || $request->is('api/*')) {
 			$msg = $exception->getMessage();
 			$code = 422;
 			if($exception instanceof NotFoundHttpException) {

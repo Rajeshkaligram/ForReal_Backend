@@ -67,10 +67,22 @@ class UserController extends ApiBaseController {
 
             unset($user_details['verification_code']);
 
+            try {
+                $apiToken = $user->createToken(env('APP_NAME'))->accessToken;
+            } catch (\Throwable $e) {
+                report($e);
+
+                return response()->json([
+                    'status'    => 500,
+                    'message'   => 'User created but token generation failed. Check Passport keys and personal access client setup.',
+                    'data'      => [],
+                ], 500);
+            }
+
             return response()->json([
                 'status'    => $this->createdStatus,
                 'message'   => 'Your account was successfully created. We have sent you an e-mail to confirm your account.',
-                'data'      => array_merge(['api_token' => $user->createToken(env('APP_NAME'))->accessToken], $user_details),
+                'data'      => array_merge(['api_token' => $apiToken], $user_details),
             ], $this->createdStatus);
 
         } else {
