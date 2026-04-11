@@ -62,7 +62,6 @@ sed "s/DEFAULT '0000-00-00 00:00:00'/DEFAULT CURRENT_TIMESTAMP/g" | \
 sed "s/DEFAULT '0000-00-00'/DEFAULT CURRENT_DATE/g" | \
 sed 's/NOT NULL DEFAULT CURRENT_TIMESTAMP/DEFAULT CURRENT_TIMESTAMP/g' | \
 sed 's/KEY "[^"]*" ([^)]*)//g' | \
-sed 's/PRIMARY KEY ([^)]*)/PRIMARY KEY (\1)/g' | \
 sed 's/UNIQUE KEY "[^"]*" ([^)]*)//g' | \
 sed 's/INDEX "[^"]*" ([^)]*)//g' | \
 sed 's/CONSTRAINT "[^"]*" FOREIGN KEY/FOREIGN KEY/g' | \
@@ -74,7 +73,6 @@ sed 's/SET AUTOCOMMIT[^;]*;//g' | \
 sed 's/SET time_zone[^;]*;//g' | \
 sed 's/START TRANSACTION;//g' | \
 sed 's/COMMIT;//g' | \
-sed 's//*!40101 SET[^;]*;//g' | \
 sed 's/\/\*![0-9]*//g' | \
 sed 's/\*\///g' | \
 grep -v "^$" > "$CONVERTED_SQL"
