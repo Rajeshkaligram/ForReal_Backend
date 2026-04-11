@@ -61,9 +61,25 @@ class UserController extends ApiBaseController {
             $user_details['profile_picture'] = env('APP_URL').'/'.$user_details['profile_picture'];
             $user_details['profile_picture_custom_size'] = env('APP_URL').'/'.$user_details['profile_picture_custom_size'];
 
-            if (config('access.users.confirm_email')) {
-                $user->notify(new RegistrationVerificationCodeSend($user_details['verification_code']));
-            }
+            // OLD LOGIC (for future SMTP re-enable):
+            // $requiresEmailConfirmation = (bool) config('access.users.confirm_email');
+            // if ($requiresEmailConfirmation) {
+            //     $user->notify(new RegistrationVerificationCodeSend($user_details['verification_code']));
+            // } else {
+            //     User::where('id', $user->id)->update([
+            //         'status' => 1,
+            //         'verification_code' => 0,
+            //     ]);
+            //     $user_details['status'] = 1;
+            // }
+
+            // TEMPORARY LOGIC:
+            // Auto-activate signup users until SMTP is configured on server.
+            User::where('id', $user->id)->update([
+                'status' => 1,
+                'verification_code' => 0,
+            ]);
+            $user_details['status'] = 1;
 
             unset($user_details['verification_code']);
 
@@ -81,7 +97,7 @@ class UserController extends ApiBaseController {
 
             return response()->json([
                 'status'    => $this->createdStatus,
-                'message'   => 'Your account was successfully created. We have sent you an e-mail to confirm your account.',
+                'message'   => 'Your account was successfully created.',
                 'data'      => array_merge(['api_token' => $apiToken], $user_details),
             ], $this->createdStatus);
 

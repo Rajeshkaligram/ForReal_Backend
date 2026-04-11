@@ -32,8 +32,12 @@ if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
     echo "Running database migrations..."
     php artisan migrate --force || true
 
-    echo "Generating Passport keys..."
-    php artisan passport:keys --force || true
+    if [ ! -f "storage/oauth-private.key" ] || [ ! -f "storage/oauth-public.key" ]; then
+        echo "Generating Passport keys (missing)..."
+        php artisan passport:keys --force || true
+    else
+        echo "Passport keys already exist, skipping regeneration."
+    fi
 
     echo "Ensuring Personal Access Client exists..."
     php artisan passport:client --personal --name="ForReal Personal Access Client" --no-interaction || true
