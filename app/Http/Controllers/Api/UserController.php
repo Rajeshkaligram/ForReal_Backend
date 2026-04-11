@@ -35,7 +35,8 @@ class UserController extends ApiBaseController {
             'first_name'    => 'required|max:15',
             'last_name'     => 'required|max:15',
             'email'         => 'required|email|unique:users',
-            'password'      => 'required|min:6',
+            'password'      => 'required|min:6|confirmed',
+            'terms_condition' => 'required|accepted',
         ]);
 
         if ($validator->fails()) {
@@ -46,9 +47,9 @@ class UserController extends ApiBaseController {
             ], $this->failedStatus);
         }
 
-        $check_user = User::where('email', $request->email)->get();
+        $check_user = User::where('email', $request->email)->first();
 
-        if (count($check_user) == 0 || $check_user->status == '0') {
+        if (!$check_user || $check_user->status == '0') {
             $user = User::manageData($request);
 
             $request->user_id = $user->id; //putting user_id into $request
