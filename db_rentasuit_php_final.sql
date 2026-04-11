@@ -10,6 +10,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
+SET FOREIGN_KEY_CHECKS = 0;
 SET time_zone = "+00:00";
 
 
@@ -28,7 +29,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `blog`
 --
 
-CREATE TABLE `blog` (
+DROP TABLE IF EXISTS `blog`; CREATE TABLE `blog` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -70,7 +71,7 @@ INSERT INTO `blog` (`id`, `user_id`, `title`, `description`, `picture`, `picture
 -- Table structure for table `blog_categories`
 --
 
-CREATE TABLE `blog_categories` (
+DROP TABLE IF EXISTS `blog_categories`; CREATE TABLE `blog_categories` (
   `id` int(11) NOT NULL,
   `blog_id` int(11) UNSIGNED NOT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
@@ -84,7 +85,7 @@ CREATE TABLE `blog_categories` (
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
+DROP TABLE IF EXISTS `categories`; CREATE TABLE `categories` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = blog | 1 = product',
@@ -119,7 +120,7 @@ INSERT INTO `categories` (`id`, `name`, `status`, `picture`, `shipping_fee_local
 -- Table structure for table `cleaner`
 --
 
-CREATE TABLE `cleaner` (
+DROP TABLE IF EXISTS `cleaner`; CREATE TABLE `cleaner` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT '',
   `shop_name` varchar(255) NOT NULL DEFAULT '',
@@ -146,7 +147,7 @@ INSERT INTO `cleaner` (`id`, `name`, `shop_name`, `location`, `latitude`, `longi
 -- Table structure for table `configuration`
 --
 
-CREATE TABLE `configuration` (
+DROP TABLE IF EXISTS `configuration`; CREATE TABLE `configuration` (
   `id` int(11) NOT NULL,
   `logo` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `logo_footer` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -180,7 +181,7 @@ INSERT INTO `configuration` (`id`, `logo`, `logo_footer`, `name`, `email`, `copy
 -- Table structure for table `countries`
 --
 
-CREATE TABLE `countries` (
+DROP TABLE IF EXISTS `countries`; CREATE TABLE `countries` (
   `Code` char(3) NOT NULL DEFAULT '',
   `Name` char(52) NOT NULL DEFAULT '',
   `Continent` enum('Asia','Europe','North America','Africa','Oceania','Antarctica','South America') NOT NULL DEFAULT 'Asia',
@@ -449,7 +450,7 @@ INSERT INTO `countries` (`Code`, `Name`, `Continent`, `Region`, `SurfaceArea`, `
 -- Table structure for table `dropzone`
 --
 
-CREATE TABLE `dropzone` (
+DROP TABLE IF EXISTS `dropzone`; CREATE TABLE `dropzone` (
   `id` int(11) NOT NULL,
   `ip` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `label_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -466,7 +467,7 @@ CREATE TABLE `dropzone` (
 -- Table structure for table `faqs`
 --
 
-CREATE TABLE `faqs` (
+DROP TABLE IF EXISTS `faqs`; CREATE TABLE `faqs` (
   `id` int(11) NOT NULL,
   `section` varchar(255) DEFAULT NULL,
   `category` varchar(255) DEFAULT NULL,
@@ -520,7 +521,7 @@ INSERT INTO `faqs` (`id`, `section`, `category`, `question`, `answer`, `created_
 -- Table structure for table `messages`
 --
 
-CREATE TABLE `messages` (
+DROP TABLE IF EXISTS `messages`; CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
   `room_id` int(11) UNSIGNED NOT NULL,
   `from_user_id` int(11) UNSIGNED NOT NULL COMMENT 'sender',
@@ -549,7 +550,7 @@ INSERT INTO `messages` (`id`, `room_id`, `from_user_id`, `to_user_id`, `content`
 -- Table structure for table `messages_room`
 --
 
-CREATE TABLE `messages_room` (
+DROP TABLE IF EXISTS `messages_room`; CREATE TABLE `messages_room` (
   `id` int(11) UNSIGNED NOT NULL,
   `md5_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `creator_id` int(11) UNSIGNED NOT NULL,
@@ -570,7 +571,7 @@ INSERT INTO `messages_room` (`id`, `md5_id`, `creator_id`, `updated_at`, `create
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
+DROP TABLE IF EXISTS `migrations`; CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
@@ -582,7 +583,7 @@ CREATE TABLE `migrations` (
 -- Table structure for table `news_latter`
 --
 
-CREATE TABLE `news_latter` (
+DROP TABLE IF EXISTS `news_latter`; CREATE TABLE `news_latter` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -596,7 +597,7 @@ CREATE TABLE `news_latter` (
 -- Table structure for table `notification`
 --
 
-CREATE TABLE `notification` (
+DROP TABLE IF EXISTS `notification`; CREATE TABLE `notification` (
   `id` int(11) UNSIGNED NOT NULL,
   `for_user` int(11) UNSIGNED NOT NULL,
   `from_user` int(11) UNSIGNED NOT NULL,
@@ -1216,7 +1217,7 @@ INSERT INTO `notification` (`id`, `for_user`, `from_user`, `rent_id`, `title`, `
 -- Table structure for table `pages`
 --
 
-CREATE TABLE `pages` (
+DROP TABLE IF EXISTS `pages`; CREATE TABLE `pages` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1247,7 +1248,7 @@ INSERT INTO `pages` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `page_content`
 --
 
-CREATE TABLE `page_content` (
+DROP TABLE IF EXISTS `page_content`; CREATE TABLE `page_content` (
   `id` int(11) NOT NULL,
   `page_id` int(11) UNSIGNED NOT NULL,
   `section_id` int(11) UNSIGNED NOT NULL,
@@ -1363,7 +1364,7 @@ INSERT INTO `page_content` (`id`, `page_id`, `section_id`, `field_type`, `field_
 -- Table structure for table `page_section`
 --
 
-CREATE TABLE `page_section` (
+DROP TABLE IF EXISTS `page_section`; CREATE TABLE `page_section` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1388,7 +1389,7 @@ INSERT INTO `page_section` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+DROP TABLE IF EXISTS `password_resets`; CREATE TABLE `password_resets` (
   `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -1460,7 +1461,7 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 -- Table structure for table `products`
 --
 
-CREATE TABLE `products` (
+DROP TABLE IF EXISTS `products`; CREATE TABLE `products` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1619,7 +1620,7 @@ INSERT INTO `products` (`id`, `user_id`, `name`, `description`, `price`, `color`
 -- Table structure for table `product_categories`
 --
 
-CREATE TABLE `product_categories` (
+DROP TABLE IF EXISTS `product_categories`; CREATE TABLE `product_categories` (
   `id` int(11) NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
@@ -1763,7 +1764,7 @@ INSERT INTO `product_categories` (`id`, `product_id`, `category_id`, `created_at
 -- Table structure for table `product_photos`
 --
 
-CREATE TABLE `product_photos` (
+DROP TABLE IF EXISTS `product_photos`; CREATE TABLE `product_photos` (
   `id` int(11) NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
   `sub_photo` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2021,7 +2022,7 @@ INSERT INTO `product_photos` (`id`, `product_id`, `sub_photo`, `type`, `size`, `
 -- Table structure for table `product_user_review`
 --
 
-CREATE TABLE `product_user_review` (
+DROP TABLE IF EXISTS `product_user_review`; CREATE TABLE `product_user_review` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -2051,7 +2052,7 @@ INSERT INTO `product_user_review` (`id`, `user_id`, `product_id`, `rating`, `tit
 -- Table structure for table `rattings`
 --
 
-CREATE TABLE `rattings` (
+DROP TABLE IF EXISTS `rattings`; CREATE TABLE `rattings` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -2081,7 +2082,7 @@ INSERT INTO `rattings` (`id`, `user_id`, `product_id`, `delivery_rat`, `time_rat
 -- Table structure for table `rent_details`
 --
 
-CREATE TABLE `rent_details` (
+DROP TABLE IF EXISTS `rent_details`; CREATE TABLE `rent_details` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
@@ -2248,7 +2249,7 @@ INSERT INTO `rent_details` (`id`, `user_id`, `product_id`, `delivery_option`, `r
 -- Table structure for table `rent_details_transaction_detail`
 --
 
-CREATE TABLE `rent_details_transaction_detail` (
+DROP TABLE IF EXISTS `rent_details_transaction_detail`; CREATE TABLE `rent_details_transaction_detail` (
   `id` int(11) NOT NULL,
   `rented_detail_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -2298,7 +2299,7 @@ INSERT INTO `rent_details_transaction_detail` (`id`, `rented_detail_id`, `user_i
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users`; CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `email` text COLLATE utf8mb4_unicode_ci,
   `username` text COLLATE utf8mb4_unicode_ci,
@@ -2456,7 +2457,7 @@ INSERT INTO `users` (`id`, `email`, `username`, `first_name`, `last_name`, `cont
 -- Table structure for table `user_device_token`
 --
 
-CREATE TABLE `user_device_token` (
+DROP TABLE IF EXISTS `user_device_token`; CREATE TABLE `user_device_token` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `device_type` enum('Android','IOS','','') NOT NULL DEFAULT 'Android',
@@ -2478,7 +2479,7 @@ INSERT INTO `user_device_token` (`id`, `user_id`, `device_type`, `device_token`,
 -- Table structure for table `wishlist`
 --
 
-CREATE TABLE `wishlist` (
+DROP TABLE IF EXISTS `wishlist`; CREATE TABLE `wishlist` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
@@ -2946,3 +2947,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+SET FOREIGN_KEY_CHECKS = 1;
+COMMIT;
