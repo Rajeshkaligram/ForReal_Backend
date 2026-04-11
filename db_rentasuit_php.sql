@@ -9,6 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,7 +30,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `blog` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
   `title` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -71,7 +72,7 @@ INSERT INTO `blog` (`id`, `user_id`, `title`, `description`, `picture`, `picture
 --
 
 CREATE TABLE `blog_categories` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `blog_id` int(11) UNSIGNED NOT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -85,7 +86,7 @@ CREATE TABLE `blog_categories` (
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` text COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = blog | 1 = product',
   `picture` text COLLATE utf8_unicode_ci,
@@ -120,7 +121,7 @@ INSERT INTO `categories` (`id`, `name`, `status`, `picture`, `shipping_fee_local
 --
 
 CREATE TABLE `cleaner` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `shop_name` varchar(255) NOT NULL DEFAULT '',
   `location` text NOT NULL,
@@ -147,7 +148,7 @@ INSERT INTO `cleaner` (`id`, `name`, `shop_name`, `location`, `latitude`, `longi
 --
 
 CREATE TABLE `configuration` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `logo` text COLLATE utf8_unicode_ci NOT NULL,
   `logo_footer` text COLLATE utf8_unicode_ci NOT NULL,
   `name` text COLLATE utf8_unicode_ci NOT NULL,
@@ -450,7 +451,7 @@ INSERT INTO `countries` (`Code`, `Name`, `Continent`, `Region`, `SurfaceArea`, `
 --
 
 CREATE TABLE `dropzone` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `ip` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `label_name` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `file` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -467,14 +468,14 @@ CREATE TABLE `dropzone` (
 --
 
 CREATE TABLE `faqs` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `section` varchar(255) DEFAULT NULL,
   `category` varchar(255) DEFAULT NULL,
   `question` varchar(255) NOT NULL DEFAULT '',
   `answer` text NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `faqs`
@@ -521,7 +522,7 @@ INSERT INTO `faqs` (`id`, `section`, `category`, `question`, `answer`, `created_
 --
 
 CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `room_id` int(11) UNSIGNED NOT NULL,
   `from_user_id` int(11) UNSIGNED NOT NULL COMMENT 'sender',
   `to_user_id` int(11) UNSIGNED NOT NULL COMMENT 'reciever',
@@ -550,7 +551,7 @@ INSERT INTO `messages` (`id`, `room_id`, `from_user_id`, `to_user_id`, `content`
 --
 
 CREATE TABLE `messages_room` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `md5_id` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `creator_id` int(11) UNSIGNED NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -571,7 +572,7 @@ INSERT INTO `messages_room` (`id`, `md5_id`, `creator_id`, `updated_at`, `create
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -583,12 +584,12 @@ CREATE TABLE `migrations` (
 --
 
 CREATE TABLE `news_latter` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -597,7 +598,7 @@ CREATE TABLE `news_latter` (
 --
 
 CREATE TABLE `notification` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `for_user` int(11) UNSIGNED NOT NULL,
   `from_user` int(11) UNSIGNED NOT NULL,
   `rent_id` int(11) UNSIGNED NOT NULL,
@@ -1217,7 +1218,7 @@ INSERT INTO `notification` (`id`, `for_user`, `from_user`, `rent_id`, `title`, `
 --
 
 CREATE TABLE `pages` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -1248,7 +1249,7 @@ INSERT INTO `pages` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `page_content` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `page_id` int(11) UNSIGNED NOT NULL,
   `section_id` int(11) UNSIGNED NOT NULL,
   `field_type` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'text, textarea, image, file, wysiwyg_basic, wysiwyg_full, repeater',
@@ -1364,7 +1365,7 @@ INSERT INTO `page_content` (`id`, `page_id`, `section_id`, `field_type`, `field_
 --
 
 CREATE TABLE `page_section` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -1461,7 +1462,7 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 --
 
 CREATE TABLE `products` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
   `name` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -1620,7 +1621,7 @@ INSERT INTO `products` (`id`, `user_id`, `name`, `description`, `price`, `color`
 --
 
 CREATE TABLE `product_categories` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `product_id` int(11) UNSIGNED NOT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -1764,7 +1765,7 @@ INSERT INTO `product_categories` (`id`, `product_id`, `category_id`, `created_at
 --
 
 CREATE TABLE `product_photos` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `product_id` int(11) UNSIGNED NOT NULL,
   `sub_photo` text COLLATE utf8_unicode_ci NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = image',
@@ -2022,7 +2023,7 @@ INSERT INTO `product_photos` (`id`, `product_id`, `sub_photo`, `type`, `size`, `
 --
 
 CREATE TABLE `product_user_review` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `rating` varchar(11) NOT NULL,
@@ -2030,7 +2031,7 @@ CREATE TABLE `product_user_review` (
   `comment` text NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_user_review`
@@ -2052,7 +2053,7 @@ INSERT INTO `product_user_review` (`id`, `user_id`, `product_id`, `rating`, `tit
 --
 
 CREATE TABLE `rattings` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `delivery_rat` varchar(50) NOT NULL,
@@ -2082,7 +2083,7 @@ INSERT INTO `rattings` (`id`, `user_id`, `product_id`, `delivery_rat`, `time_rat
 --
 
 CREATE TABLE `rent_details` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
   `delivery_option` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -2249,7 +2250,7 @@ INSERT INTO `rent_details` (`id`, `user_id`, `product_id`, `delivery_option`, `r
 --
 
 CREATE TABLE `rent_details_transaction_detail` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `rented_detail_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `total_amount` double NOT NULL,
@@ -2259,7 +2260,7 @@ CREATE TABLE `rent_details_transaction_detail` (
   `pay_key` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rent_details_transaction_detail`
@@ -2299,7 +2300,7 @@ INSERT INTO `rent_details_transaction_detail` (`id`, `rented_detail_id`, `user_i
 --
 
 CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `email` text COLLATE utf8_unicode_ci,
   `username` text COLLATE utf8_unicode_ci,
   `first_name` text COLLATE utf8_unicode_ci,
@@ -2457,13 +2458,13 @@ INSERT INTO `users` (`id`, `email`, `username`, `first_name`, `last_name`, `cont
 --
 
 CREATE TABLE `user_device_token` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `device_type` enum('Android','IOS','','') NOT NULL DEFAULT 'Android',
   `device_token` text NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_device_token`
@@ -2479,7 +2480,7 @@ INSERT INTO `user_device_token` (`id`, `user_id`, `device_type`, `device_token`,
 --
 
 CREATE TABLE `wishlist` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -2561,388 +2562,6 @@ INSERT INTO `wishlist` (`id`, `user_id`, `product_id`, `created_at`, `updated_at
 (174, 419, 481, '2019-09-16 17:51:33', '2019-09-16 17:51:33'),
 (175, 418, 487, '2019-09-28 12:02:55', '2019-09-28 12:02:55'),
 (176, 420, 372, '2019-09-29 19:46:31', '2019-09-29 19:46:31');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `blog`
---
-ALTER TABLE `blog`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `blog_categories`
---
-ALTER TABLE `blog_categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `blog_id` (`blog_id`,`category_id`),
-  ADD KEY `categories_blog_categories_category_id` (`category_id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `cleaner`
---
-ALTER TABLE `cleaner`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `configuration`
---
-ALTER TABLE `configuration`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `countries`
---
-ALTER TABLE `countries`
-  ADD PRIMARY KEY (`Code`);
-
---
--- Indexes for table `dropzone`
---
-ALTER TABLE `dropzone`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `faqs`
---
-ALTER TABLE `faqs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `room_id` (`room_id`),
-  ADD KEY `sender_id` (`from_user_id`),
-  ADD KEY `reciever_id` (`to_user_id`);
-
---
--- Indexes for table `messages_room`
---
-ALTER TABLE `messages_room`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `creator_id` (`creator_id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `news_latter`
---
-ALTER TABLE `news_latter`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pages`
---
-ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `page_content`
---
-ALTER TABLE `page_content`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `page_id` (`page_id`),
-  ADD KEY `section_id` (`section_id`);
-
---
--- Indexes for table `page_section`
---
-ALTER TABLE `page_section`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `user_id_2` (`user_id`);
-
---
--- Indexes for table `product_categories`
---
-ALTER TABLE `product_categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `product_photos`
---
-ALTER TABLE `product_photos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Indexes for table `product_user_review`
---
-ALTER TABLE `product_user_review`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `rattings`
---
-ALTER TABLE `rattings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `rent_details`
---
-ALTER TABLE `rent_details`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `rent_details_transaction_detail`
---
-ALTER TABLE `rent_details_transaction_detail`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `user_device_token`
---
-ALTER TABLE `user_device_token`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `wishlist`
---
-ALTER TABLE `wishlist`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `blog`
---
-ALTER TABLE `blog`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `blog_categories`
---
-ALTER TABLE `blog_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `cleaner`
---
-ALTER TABLE `cleaner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `configuration`
---
-ALTER TABLE `configuration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `dropzone`
---
-ALTER TABLE `dropzone`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `faqs`
---
-ALTER TABLE `faqs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `messages_room`
---
-ALTER TABLE `messages_room`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `news_latter`
---
-ALTER TABLE `news_latter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=840;
-
---
--- AUTO_INCREMENT for table `pages`
---
-ALTER TABLE `pages`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `page_content`
---
-ALTER TABLE `page_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
-
---
--- AUTO_INCREMENT for table `page_section`
---
-ALTER TABLE `page_section`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=489;
-
---
--- AUTO_INCREMENT for table `product_categories`
---
-ALTER TABLE `product_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
-
---
--- AUTO_INCREMENT for table `product_photos`
---
-ALTER TABLE `product_photos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=381;
-
---
--- AUTO_INCREMENT for table `product_user_review`
---
-ALTER TABLE `product_user_review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `rattings`
---
-ALTER TABLE `rattings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `rent_details`
---
-ALTER TABLE `rent_details`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
-
---
--- AUTO_INCREMENT for table `rent_details_transaction_detail`
---
-ALTER TABLE `rent_details_transaction_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=421;
-
---
--- AUTO_INCREMENT for table `user_device_token`
---
-ALTER TABLE `user_device_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `wishlist`
---
-ALTER TABLE `wishlist`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `blog`
---
-ALTER TABLE `blog`
-  ADD CONSTRAINT `users_blog_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `blog_categories`
---
-ALTER TABLE `blog_categories`
-  ADD CONSTRAINT `blog_blog_categories_blog_id` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `categories_blog_categories_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `page_content`
---
-ALTER TABLE `page_content`
-  ADD CONSTRAINT `page_secion_page_content_section_id` FOREIGN KEY (`section_id`) REFERENCES `page_section` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pages_page_content_page_id` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `users_products_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `product_categories`
---
-ALTER TABLE `product_categories`
-  ADD CONSTRAINT `categories_product_categories_product_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `products_product_categories_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `product_photos`
---
-ALTER TABLE `product_photos`
-  ADD CONSTRAINT `products_product_photos_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
+COMMIT;
