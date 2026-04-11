@@ -25,10 +25,10 @@ class ApiAuthenticate
         else
         {
             return response([
-                        'status' => UNAUTHORIZED,
-                        'message' => MSG_UNAUTHORIZED,
+                        'status' => 401,
+                        'message' => 'UNAUTHORIZED TO ACCESS',
                         'data' => []
-                        ], HTTP_UNAUTHORIZED
+                        ], 401
                         );
         }   
     }
