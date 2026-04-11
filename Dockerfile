@@ -10,11 +10,8 @@ RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev default-mysql-client \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Fix MPM conflict - aggressive approach
-RUN rm -f /etc/apache2/mods-enabled/mpm_*.* \
-    && a2enmod mpm_prefork \
-    && a2enmod rewrite headers \
-    && echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# Use custom Apache configuration to bypass MPM issues
+COPY custom-apache.conf /etc/apache2/apache2.conf
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
