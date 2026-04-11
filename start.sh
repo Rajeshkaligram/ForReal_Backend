@@ -3,7 +3,7 @@
 set -e
 
 if [ -z "${PORT}" ]; then
-  export PORT=8080
+  export PORT=80
 fi
 
 echo "Using PORT: ${PORT}"
