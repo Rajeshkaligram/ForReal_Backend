@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies (including PostgreSQL driver)
 RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev \
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev postgresql-client \
     && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
 
 # Install Composer
@@ -31,8 +31,8 @@ RUN a2enmod rewrite headers
 # Set Laravel public folder with proper Apache 2.4 configuration
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
-# Copy start script
-RUN chmod +x /app/start.sh
+# Copy start script and import script
+RUN chmod +x /app/start.sh /app/import-db.sh
 
 # ✅ IMPORTANT: use start.sh
 CMD ["/app/start.sh"]
