@@ -17,7 +17,11 @@ class Controller extends BaseController{
 
     public function __construct()
     {
-        $this->data['configuration'] = Configuration::find(1);
+        try {
+            $this->data['configuration'] = Configuration::find(1);
+        } catch (\Exception $e) {
+            $this->data['configuration'] = null;
+        }
         View::share($this->data);
     }
 
