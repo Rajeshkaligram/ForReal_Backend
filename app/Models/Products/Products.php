@@ -38,7 +38,7 @@ class Products extends Model {
     public static function manageData($request, $user_id) {
 
         $id                 = $request->has('id') ? $request->id : 0;
-        $data               = self::findOrNew($id);
+        $data               = $id ? self::find($id) : new self;
         $data->user_id      = $user_id;
         $data->name         = $request->name;
         $data->description  = $request->description;
@@ -94,7 +94,7 @@ class Products extends Model {
     public static function manageData64($request, $user_id) {
 
         $id                 = $request->has('id') ? $request->id : 0;
-        $data               = self::findOrNew($id);
+        $data               = $id ? self::find($id) : new self;
         $data->user_id      = $user_id;
         $data->name         = $request->name;
         $data->description  = $request->description;
