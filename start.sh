@@ -15,6 +15,9 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-avail
 # Clear cache (skip if DB not configured)
 php artisan config:clear --no-interaction 2>/dev/null || true
 
+# Start Apache in the background so Render sees the port is open immediately
+apache2-foreground &
+
 # Set the SSL CA path for TiDB Cloud (Standard for Debian/Ubuntu)
 if [ -z "${MYSQL_ATTR_SSL_CA}" ]; then
     export MYSQL_ATTR_SSL_CA="/etc/ssl/certs/ca-certificates.crt"
@@ -45,5 +48,5 @@ mkdir -p storage/framework/{sessions,views,cache}
 chmod -R 775 storage bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 
-# Start Apache
-apache2-foreground
+# Keep the script alive
+wait
