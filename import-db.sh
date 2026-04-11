@@ -62,6 +62,7 @@ sed -e 's/--.*$//' \
     -e 's/COMMIT;//g' \
     -e 's/\/\*![0-9]*//g' \
     -e 's/\*\///g' \
+    -e 's/INSERT INTO/INSERT INTO/g' \
     "$SQL_FILE" | grep -v "^$" > "$CONVERTED_SQL"
 
 echo "Importing database to PostgreSQL..."
