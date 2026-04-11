@@ -43,6 +43,7 @@ sed -e 's/--.*$//' \
     -e 's/tinytext/TEXT/g' \
     -e 's/ENUM([^)]*)/TEXT/g' \
     -e 's/SET([^)]*)/TEXT/g' \
+    -e "s/COMMENT '[^']*'//g" \
     -e 's/UNSIGNED//g' \
     -e 's/unsigned//g' \
     -e 's/ZEROFILL//g' \
@@ -63,6 +64,9 @@ sed -e 's/--.*$//' \
     -e 's/\/\*![0-9]*//g' \
     -e 's/\*\///g' \
     -e 's/INSERT INTO/INSERT INTO/g' \
+    -e 's/\\r\\n/ /g' \
+    -e 's/\\n/ /g' \
+    -e "s/\\\'/''/g" \
     "$SQL_FILE" | grep -v "^$" > "$CONVERTED_SQL"
 
 echo "Importing database to PostgreSQL..."
