@@ -103,7 +103,7 @@ class User extends Authenticatable
 
     public static function manageData($request, $id = 0)
     {
-        $data = self::findOrNew($id);
+        $data = ($id == 0) ? new self : self::findOrNew($id);
 
         if ($request->has('first_name')) {
             $data->first_name = $request->first_name;
