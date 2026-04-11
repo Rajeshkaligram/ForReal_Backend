@@ -15,7 +15,12 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-avail
 # Clear cache (skip if DB not configured)
 php artisan config:clear --no-interaction 2>/dev/null || true
 
-# Run migrations safely (skip if DB not configured)
+# Set the SSL CA path for TiDB Cloud (Standard for Debian/Ubuntu)
+if [ -z "${MYSQL_ATTR_SSL_CA}" ]; then
+    export MYSQL_ATTR_SSL_CA="/etc/ssl/certs/ca-certificates.crt"
+fi
+
+# Run migrations and setup
 if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
     echo "Running migrations..."
     php artisan migrate --force || true
