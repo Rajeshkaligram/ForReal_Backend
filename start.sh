@@ -18,22 +18,28 @@ fi
 sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf
 sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
-# Clear cache (skip if DB not configured)
+# Laravel boot cleanup
+php artisan optimize:clear --no-interaction 2>/dev/null || true
 php artisan config:clear --no-interaction 2>/dev/null || true
+php artisan route:clear --no-interaction 2>/dev/null || true
+php artisan cache:clear --no-interaction 2>/dev/null || true
 
 # Start Apache in the background so Render sees the port is open immediately
 apache2-foreground &
 
-# Run migrations and setup
+# Run migrations and Passport setup
 if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
-    echo "Running migrations..."
+    echo "Running database migrations..."
     php artisan migrate --force || true
-    # Initialize Passport keys for API login.
-    # SQL dump import is intentionally NOT done during app boot because
-    # large dumps are unreliable via tinker/DB::unprepared and can crash startup.
-    echo "Initializing Passport keys..."
-    php artisan passport:install --force --no-interaction || true
+
+    echo "Generating Passport keys..."
+    php artisan passport:keys --force || true
+
+    echo "Ensuring Personal Access Client exists..."
+    php artisan passport:client --personal --name="ForReal Personal Access Client" --no-interaction || true
 fi
+
+php artisan config:cache --no-interaction 2>/dev/null || true
 
 # Ensure permissions are correct
 mkdir -p storage/framework/{sessions,views,cache}
