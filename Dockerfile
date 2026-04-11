@@ -10,11 +10,24 @@ RUN apt-get update && apt-get install -y \
 # Enable required Apache modules
 RUN a2dismod mpm_event || true && a2dismod mpm_worker || true && a2enmod mpm_prefork && a2enmod rewrite headers
 
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copy app
+COPY . .
+
+# Install PHP deps
+RUN composer install --ignore-platform-reqs --no-interaction --prefer-dist --optimize-autoloader
+
+# Permissions
+RUN chown -R www-data:www-data /app \
+    && chmod -R 755 /app/storage \
+    && chmod -R 755 /app/bootstrap/cache \
+    && chmod -R 755 /app/public \
+    && chmod +x /app/start.sh /app/import-db.sh
+
 # Set Laravel public folder with proper Apache 2.4 configuration
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
-
-# Copy start script and import script
-RUN chmod +x /app/start.sh /app/import-db.sh
 
 # ✅ IMPORTANT: use start.sh
 CMD ["/app/start.sh"]
