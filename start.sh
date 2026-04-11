@@ -32,7 +32,7 @@ if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
     # SQL dump import is intentionally NOT done during app boot because
     # large dumps are unreliable via tinker/DB::unprepared and can crash startup.
     echo "Initializing Passport keys..."
-    php artisan passport:install --force || true
+    php artisan passport:install --force --no-interaction || true
 fi
 
 # Ensure permissions are correct
