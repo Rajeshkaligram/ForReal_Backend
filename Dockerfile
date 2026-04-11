@@ -1,5 +1,8 @@
 FROM php:8.2-apache
 
+# Force cache invalidation - v2
+ARG CACHE_BUST=2
+
 WORKDIR /app
 
 # Install dependencies (including MySQL client)
