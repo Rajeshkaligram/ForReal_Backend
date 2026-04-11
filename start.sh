@@ -27,20 +27,11 @@ fi
 if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
     echo "Running migrations..."
     php artisan migrate --force || true
-
-    # Check for our big SQL import file
-    if [ -f "db_rentasuit_php_final.sql" ] || [ -f "db_rentasuit_php_final.sql.bak" ]; then
-        if [ -f "db_rentasuit_php_final.sql" ]; then
-            echo "Found db_rentasuit_php_final.sql. Starting automatic import..."
-            php artisan tinker --execute="DB::unprepared(file_get_contents('db_rentasuit_php_final.sql'));"
-            echo "Import complete! Moving file to prevent re-import."
-            mv db_rentasuit_php_final.sql db_rentasuit_php_final.sql.bak
-        fi
-        
-        # Initialize Passport for API login
-        echo "Initializing Passport keys..."
-        php artisan passport:install --force || true
-    fi
+    # Initialize Passport keys for API login.
+    # SQL dump import is intentionally NOT done during app boot because
+    # large dumps are unreliable via tinker/DB::unprepared and can crash startup.
+    echo "Initializing Passport keys..."
+    php artisan passport:install --force || true
 fi
 
 # Ensure permissions are correct

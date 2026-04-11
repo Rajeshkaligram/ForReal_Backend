@@ -19,6 +19,13 @@ Route::get('/health', function () {
 Route::get('/test', function () {
     return response()->json(['status' => 'ok']);
 });
+Route::get('/', function () {
+    return response()->json([
+        'status' => 'ok',
+        'service' => 'rentasuit-backend',
+        'version' => 'v1.0',
+    ]);
+});
 
 Route::get('payment', function () {
     $curl = curl_init();
@@ -360,8 +367,8 @@ Route::group(['middlewareGroups' => ['web']], function () {
         Route::get('faq', 'MainController@getFaq');
         Route::get('contact-us', 'MainController@getContactUs');
         Route::get('about', 'MainController@getAbout');
+        Route::get('/home', 'MainController@getIndex');
         Route::get('/{slug}', 'ProfileController@getSingle');
-        Route::get('/', 'MainController@getIndex');
         Route::post('/add-news-latter', 'MainController@postAddNewsLatter');
     });
     
