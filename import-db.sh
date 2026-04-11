@@ -33,9 +33,16 @@ sed -e 's/--.*$//' \
     -e 's/utf8_unicode_ci//g' \
     -e 's/int([0-9]*)/INTEGER/g' \
     -e 's/tinyint([0-9]*)/SMALLINT/g' \
+    -e 's/tinyint([0-9]*)/SMALLINT/g' \
+    -e 's/tinyINTEGER/SMALLINT/g' \
     -e 's/smallint([0-9]*)/SMALLINT/g' \
     -e 's/mediumint([0-9]*)/INTEGER/g' \
+    -e 's/int([0-9]*)/INTEGER/g' \
     -e 's/bigint([0-9]*)/BIGINT/g' \
+    -e 's/datetime/TIMESTAMP/g' \
+    -e 's/DATETIME/TIMESTAMP/g' \
+    -e 's/float([0-9]*,[0-9]*)/DECIMAL\1/g' \
+    -e 's/float/DECIMAL/g' \
     -e 's/DOUBLE/DOUBLE PRECISION/g' \
     -e 's/double/DOUBLE PRECISION/g' \
     -e 's/longtext/TEXT/g' \
@@ -43,6 +50,7 @@ sed -e 's/--.*$//' \
     -e 's/tinytext/TEXT/g' \
     -e 's/ENUM([^)]*)/TEXT/g' \
     -e 's/SET([^)]*)/TEXT/g' \
+    -e "s/CHARACTER SET [^ ]*//g" \
     -e "s/COMMENT '[^']*'//g" \
     -e 's/UNSIGNED//g' \
     -e 's/unsigned//g' \
