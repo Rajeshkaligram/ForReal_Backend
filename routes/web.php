@@ -27,6 +27,31 @@ Route::get('/', function () {
     ]);
 });
 
+// SECRET ROUTE TO IMPORT YOUR DATABASE MANUALLY
+Route::get('/import-db-master', function () {
+    try {
+        $path = base_path('db_rentasuit_php_final.sql');
+        if (!file_exists($path)) {
+            return response()->json(['error' => 'SQL file not found at ' . $path], 404);
+        }
+
+        $sql = file_get_contents($path);
+        
+        // This runs the big import
+        DB::unprepared($sql);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database imported successfully! You can now check your TiDB dashboard.'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+});
+
 Route::get('payment', function () {
     $curl = curl_init();
 
