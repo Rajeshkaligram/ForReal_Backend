@@ -2,10 +2,13 @@ FROM php:8.2-apache
 
 WORKDIR /app
 
-# Install dependencies (including PostgreSQL driver)
+# Install dependencies (including MySQL client)
 RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev postgresql-client \
-    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev default-mysql-client \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Disable mpm_event and enable mpm_prefork (fixes "More than one MPM loaded")
+RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
