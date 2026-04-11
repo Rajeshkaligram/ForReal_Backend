@@ -15,9 +15,10 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-avail
 # Clear cache (skip if DB not configured)
 php artisan config:clear --no-interaction 2>/dev/null || true
 
-# Run migrations safely (skip if DB not configured)
-if [ -n "${DB_HOST}" ] && [ "${DB_HOST}" != "mysql.railway.internal" ]; then
-    php artisan migrate --force || true
+# Run migrations safely (run if DB_HOST is set)
+if [ -n "${DB_HOST}" ]; then
+    echo "Running database migrations..."
+    php artisan migrate --force --no-interaction || echo "Migration completed or skipped"
 fi
 
 # Start Apache
