@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Disable mpm_event and enable mpm_prefork (fixes "More than one MPM loaded")
-RUN a2dismod mpm_event && a2enmod mpm_prefork
+RUN a2dismod mpm_event || true && a2enmod mpm_prefork
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
