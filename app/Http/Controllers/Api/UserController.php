@@ -50,47 +50,41 @@ class UserController extends ApiBaseController {
         $check_user = User::where('email', $request->email)->first();
 
         if (!$check_user || $check_user->status == '0') {
-            $user = User::manageData($request);
-
-            $request->user_id = $user->id; //putting user_id into $request
-            DeviceToken::addData($request);
-
-            $user_details = User::where('id', $user->id)->first(['id', 'verification_code', 'status', 'first_name', 'last_name', 'profile_picture', 'profile_picture_custom_size']);
-            $user_details = $user_details->toArray();
-
-            $user_details['profile_picture'] = env('APP_URL').'/'.$user_details['profile_picture'];
-            $user_details['profile_picture_custom_size'] = env('APP_URL').'/'.$user_details['profile_picture_custom_size'];
-
-            // OLD LOGIC (for future SMTP re-enable):
-            // $requiresEmailConfirmation = (bool) config('access.users.confirm_email');
-            // if ($requiresEmailConfirmation) {
-            //     $user->notify(new RegistrationVerificationCodeSend($user_details['verification_code']));
-            // } else {
-            //     User::where('id', $user->id)->update([
-            //         'status' => 1,
-            //         'verification_code' => 0,
-            //     ]);
-            //     $user_details['status'] = 1;
-            // }
-
-            // TEMPORARY LOGIC:
-            // Auto-activate signup users until SMTP is configured on server.
-            User::where('id', $user->id)->update([
-                'status' => 1,
-                'verification_code' => 0,
-            ]);
-            $user_details['status'] = 1;
-
-            unset($user_details['verification_code']);
-
+            DB::beginTransaction();
             try {
+                $user = User::manageData($request);
+
+                $request->user_id = $user->id; //putting user_id into $request
+                DeviceToken::addData($request);
+
+                $user_details = User::where('id', $user->id)->first(['id', 'verification_code', 'status', 'first_name', 'last_name', 'profile_picture', 'profile_picture_custom_size']);
+                $user_details = $user_details->toArray();
+
+                $user_details['profile_picture'] = env('APP_URL').'/'.$user_details['profile_picture'];
+                $user_details['profile_picture_custom_size'] = env('APP_URL').'/'.$user_details['profile_picture_custom_size'];
+
+                $requiresEmailConfirmation = (bool) config('access.users.confirm_email');
+                if ($requiresEmailConfirmation) {
+                    $user->notify(new RegistrationVerificationCodeSend($user_details['verification_code']));
+                } else {
+                    User::where('id', $user->id)->update([
+                        'status' => 1,
+                        'verification_code' => 0,
+                    ]);
+                    $user_details['status'] = 1;
+                }
+
+                unset($user_details['verification_code']);
+
                 $apiToken = $user->createToken(env('APP_NAME'))->accessToken;
+                DB::commit();
             } catch (\Throwable $e) {
+                DB::rollBack();
                 report($e);
 
                 return response()->json([
                     'status'    => 500,
-                    'message'   => 'User created but token generation failed. Check Passport keys and personal access client setup.',
+                    'message'   => 'Token generation failed. Run Passport setup: php artisan passport:keys --force && php artisan passport:client --personal --name=\"ForReal Personal Access Client\"',
                     'data'      => [],
                 ], 500);
             }
