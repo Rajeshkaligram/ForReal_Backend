@@ -18,7 +18,8 @@ use App\Models\Messages\MessagesRoom;
 use App\Models\Cleaner;
 use App\Models\Configuration;
 use App\Models\FAQs;
-use Auth, Hash, Input, Session, Redirect, Mail, URL, File, Str, Config, DB, Response, View, Validator, Twilio;
+use Illuminate\Support\Str;
+use Auth, Hash, Input, Session, Redirect, Mail, URL, File, Config, DB, Response, View, Validator, Twilio;
 use Crypt;
 use Builder;
 
@@ -82,9 +83,15 @@ class UserController extends ApiBaseController {
                 DB::rollBack();
                 report($e);
 
+                $errorMessage = 'Token generation failed. Run Passport setup: php artisan passport:keys --force && php artisan passport:client --personal --name=\"ForReal Personal Access Client\"';
+                $normalized = strtolower($e->getMessage());
+                if (Str::contains($normalized, ['smtp', 'mail', 'authenticator', 'username and password not accepted'])) {
+                    $errorMessage = 'Verification email could not be sent. Please check SMTP credentials (MAIL_USERNAME/MAIL_PASSWORD) and retry.';
+                }
+
                 return response()->json([
                     'status'    => 500,
-                    'message'   => 'Token generation failed. Run Passport setup: php artisan passport:keys --force && php artisan passport:client --personal --name=\"ForReal Personal Access Client\"',
+                    'message'   => $errorMessage,
                     'data'      => [],
                 ], 500);
             }
